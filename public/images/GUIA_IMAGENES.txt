@@ -1,0 +1,27 @@
+======================================================================
+GUÍA DE IMÁGENES PARA LA LANDING DE LA DRA. NERY BETANCOURT
+======================================================================
+
+Aquí puedes colocar las fotos reales cuando las tengas. El código ya está
+preparado con textos alternativos (alt) accesibles y respaldo visual elegante:
+
+1. Foto principal de la Doctora (Sección Hero y Sobre Mí):
+   - Archivo: /images/dra-nery.jpg
+   - Alt recomendado: "Dra. Nery Betancourt - Médico Especialista en Gastroenterología y Endoscopia Digestiva"
+   - Sugerencia: Foto con bata médica, buena iluminación y sonrisa cercana.
+
+2. Foto o logotipo del Consultorio / Clínica:
+   - Archivo: /images/consultorio.jpg
+   - Alt recomendado: "Consultorio médico e instalaciones de atención de la Dra. Nery Betancourt"
+
+3. Foto o ilustración de Endoscopia / Procedimientos:
+   - Archivo: /images/endoscopia.jpg
+   - Alt recomendado: "Sala de procedimientos endoscópicos equipada para gastroscopia y colonoscopia"
+
+4. Foto de Consulta Online / Telemedicina:
+   - Archivo: /images/telemedicina.jpg
+   - Alt recomendado: "Consulta médica por telemedicina internacional con la Dra. Nery Betancourt"
+
+Cualquier duda, el componente <DoctorAvatar /> o los elementos <img> se adaptan
+automáticamente si una imagen está presente o si se muestra el avatar estilizado.
+======================================================================
