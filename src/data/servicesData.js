@@ -4,7 +4,23 @@
  * Gastroscopia, Colonoscopia, Rectoscopia, Polipectomías, CPRE, Consulta Presencial y Telemedicina.
  */
 
-export const servicesData = [
+export const servicesData = [ 
+  {
+    id: 'consulta-presencial',
+    title: 'Consulta Médica de Gastroenterología',
+    tag: 'Atención Clínica Personalizada',
+    colorTheme: 'secondary',
+    shortDescription: 'Evaluación integral, historia clínica detallada y plan de tratamiento médico para todo tipo de malestares digestivos.',
+    detailedDescription: 'Diagnóstico y manejo clínico de reflujo gastroesofágico, gastritis crónica, síndrome de intestino irritable (colon irritable), hígado graso, dispepsia funcional e intolerancias alimentarias.',
+    indications: [
+      'Ardor, pesadez y distensión abdominal recurrente',
+      'Estreñimiento crónico o diarreas frecuentes',
+      'Control de hígado graso y esteatosis hepática',
+      'Chequeo médico digestivo general y segunda opinión médica',
+    ],
+    preparationTime: 'Traer estudios previos y lista de medicamentos',
+    duration: '30 – 45 minutos de consulta ',
+  },
   {
     id: 'gastroscopia',
     title: 'Gastroscopia (Endoscopia Superior)',
@@ -79,41 +95,10 @@ export const servicesData = [
       'Cálculos en el conducto biliar (coledocolitiasis)',
       'Ictericia obstructiva (coloración amarilla en piel/ojos)',
       'Estenosis de vías biliares o pancreatitis recurrente',
-      'Colocación o recambio de próstata/stent biliar',
+      'Colocación o recambio de prótesis/stent biliar',
     ],
     preparationTime: 'Ayuno estricto y valoración médica previa',
-    duration: 'Procedimiento especializado en centro clínico',
+    duration: '30-60 minutos en sala de procedimientos',
   },
-  {
-    id: 'consulta-presencial',
-    title: 'Consulta Médica de Gastroenterología',
-    tag: 'Atención Clínica Personalizada',
-    colorTheme: 'secondary',
-    shortDescription: 'Evaluación integral, historia clínica detallada y plan de tratamiento médico para todo tipo de malestares digestivos.',
-    detailedDescription: 'Diagnóstico y manejo clínico de reflujo gastroesofágico, gastritis crónica, síndrome de intestino irritable (colon irritable), hígado graso, dispepsia funcional e intolerancias alimentarias.',
-    indications: [
-      'Ardor, pesadez y distensión abdominal recurrente',
-      'Estreñimiento crónico o diarreas frecuentes',
-      'Control de hígado graso y esteatosis hepática',
-      'Chequeo médico digestivo general y segunda opinión médica',
-    ],
-    preparationTime: 'Traer estudios previos y lista de medicamentos',
-    duration: '30 – 45 minutos de consulta dedicada',
-  },
-  {
-    id: 'telemedicina',
-    title: 'Telemedicina Internacional & Nacional',
-    tag: 'Consulta Médica Online',
-    colorTheme: 'primary',
-    shortDescription: 'Atención médica experta para pacientes que residen en el extranjero o fuera de la ciudad.',
-    detailedDescription: 'Videoconsulta confidencial de alta calidad. Ideal para orientaciones diagnósticas, revisión de resultados de endoscopias o análisis de laboratorio hechos en tu país de residencia, y prescripción de tratamiento.',
-    indications: [
-      'Pacientes venezolanos o hispanohablantes en el exterior',
-      'Dificultad de movilidad o traslado geográfico',
-      'Segunda opinión sobre diagnósticos y tratamientos digestivos',
-      'Seguimiento y control de patologías crónicas',
-    ],
-    preparationTime: 'Envío digital de informes médicos previos vía WhatsApp / Correo',
-    duration: '40 minutos vía videollamada',
-  },
+
 ];

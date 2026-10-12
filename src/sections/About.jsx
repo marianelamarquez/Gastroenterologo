@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Container, Grid, Typography, Button } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Award, CheckCircle2 } from 'lucide-react';
+import { Clock, Heart, CheckCircle2 } from 'lucide-react';
 import { colors } from '../theme/colors';
 import { doctorInfo } from '../data/doctorInfo';
 import SectionHeader from '../components/common/SectionHeader';
@@ -39,43 +39,92 @@ export default function About({ onOpenAppointmentModal }) {
                 maxHeight={430}
               />
 
+              {/* Tarjeta Flotante Superior: Horario de Atención */}
               <Box
                 sx={{
                   position: 'absolute',
-                  bottom: -15,
-                  left: { xs: 10, sm: 20 },
-                  right: { xs: 10, sm: 20 },
-                  backgroundColor: '#ffffff',
+                  top: 20,
+                  left: { xs: -10, sm: -20 },
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(10px)',
+                  border: `1.5px solid ${colors.accent.light}`,
                   borderRadius: 3,
                   p: 1.5,
-                  boxShadow: '0 8px 25px rgba(15, 23, 42, 0.08)',
-                  border: `1px solid ${colors.border.light}`,
+                  boxShadow: '0 10px 25px rgba(16, 185, 129, 0.15)',
                   display: 'flex',
                   alignItems: 'center',
-                  gap: 1.5,
+                  gap: 1.2,
+                  zIndex: 2,
                 }}
               >
                 <Box
                   sx={{
-                    width: 40,
-                    height: 40,
+                    width: 38,
+                    height: 38,
                     borderRadius: '10px',
-                    backgroundColor: colors.primary.lighter,
-                    color: colors.primary.main,
+                    backgroundColor: colors.accent.lighter,
+                    color: colors.accent.dark,
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    flexShrink: 0,
                   }}
                 >
-                  <Award size={22} />
+                  <Clock size={20} />
                 </Box>
                 <Box>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: colors.text.primary, lineHeight: 1.2 }}>
-                    Especialista Certificada
+                  <Typography variant="caption" sx={{ display: 'block', color: colors.text.muted, fontWeight: 600 }}>
+                    Horario de Atención
                   </Typography>
-                  <Typography variant="caption" sx={{ color: colors.text.secondary }}>
-                    Gastroenterología & Endoscopia Digestiva
+                  <Typography variant="body2" sx={{ fontWeight: 800, color: colors.text.primary, lineHeight: 1.2 }}>
+                    8:00 AM – 2:00 PM
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: colors.accent.dark, fontWeight: 700, fontSize: '0.7rem' }}>
+                    Previa Cita
+                  </Typography>
+                </Box>
+              </Box>
+
+              {/* Tarjeta Flotante Inferior: Experiencia y Calidez */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  bottom: -15,
+                  right: { xs: -10, sm: -20 },
+                  backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(10px)',
+                  border: `1.5px solid ${colors.secondary.light}`,
+                  borderRadius: 3,
+                  p: 1.5,
+                  boxShadow: '0 10px 25px rgba(236, 72, 153, 0.15)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 1.2,
+                  zIndex: 2,
+                }}
+              >
+                <Box
+                  sx={{
+                    width: 38,
+                    height: 38,
+                    borderRadius: '10px',
+                    backgroundColor: colors.secondary.lighter,
+                    color: colors.secondary.main,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}
+                >
+                  <Heart size={20} />
+                </Box>
+                <Box>
+                  <Typography variant="caption" sx={{ display: 'block', color: colors.text.muted, fontWeight: 600 }}>
+                    Vocación Médica
+                  </Typography>
+                  <Typography variant="body2" sx={{ fontWeight: 800, color: colors.text.primary, lineHeight: 1.2 }}>
+                    Atención Calurosa
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: colors.secondary.dark, fontWeight: 700, fontSize: '0.7rem' }}>
+                    Y Personalizada
                   </Typography>
                 </Box>
               </Box>

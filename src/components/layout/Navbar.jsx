@@ -25,13 +25,10 @@ import { doctorInfo, getWhatsAppLink } from '../../data/doctorInfo';
 
 const navItems = [
   { label: 'Inicio', href: '#inicio' },
-  { label: 'Sobre Mí', href: '#sobre-mi' },
-  { label: 'Servicios', href: '#servicios' },
   { label: 'Procedimientos', href: '#procedimientos' },
-  { label: 'Telemedicina', href: '#telemedicina' },
   { label: 'Síntomas', href: '#sintomas' },
-  { label: 'Preguntas', href: '#faq' },
   { label: 'Ubicación', href: '#ubicacion' },
+  { label: 'Preguntas', href: '#faq' },
 ];
 
 export default function Navbar({ onOpenAppointmentModal }) {
@@ -52,67 +49,6 @@ export default function Navbar({ onOpenAppointmentModal }) {
 
   return (
     <>
-      {/* Barra superior de información rápida y horarios */}
-      {/* 
-      <Box
-        sx={{
-          backgroundColor: colors.primary.darker,
-          color: '#ffffff',
-          py: 0.8,
-          fontSize: '0.8rem',
-          display: { xs: 'none', md: 'block' },
-        }}
-      >
-        <Container maxWidth={false} sx={{ px: { xs: 2, sm: 3, md: 4, lg: 6 } }}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Clock size={14} color={colors.accent.light} />
-                <Typography variant="caption" sx={{ color: colors.primary.lighter }}>
-                  Horario de Atención: <strong>{doctorInfo.schedule}</strong>
-                </Typography>
-              </Box>
-
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <MapPin size={14} color={colors.secondary.light} />
-                <Typography variant="caption" sx={{ color: colors.primary.lighter }}>
-                  {doctorInfo.location.city} • Consultas Presenciales y Online
-                </Typography>
-              </Box>
-            </Box>
-
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              <Box
-                component="a"
-                href={getWhatsAppLink('Hola Dra. Nery, deseo consultar disponibilidad para una cita')}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 0.8,
-                  color: '#ffffff',
-                  textDecoration: 'none',
-                  fontSize: '0.8rem',
-                  fontWeight: 600,
-                  transition: 'opacity 0.2s',
-                  '&:hover': { opacity: 0.85 },
-                }}
-              >
-                <WhatsAppIcon sx={{ fontSize: 16, color: '#4ADE80' }} />
-                <span>Atención Rápida por WhatsApp</span>
-              </Box>
-            </Box>
-          </Box>
-        </Container>
-      </Box>
-*/}
       {/* Barra de Navegación Principal */}
       <AppBar
         position="sticky"

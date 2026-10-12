@@ -2,23 +2,74 @@ import React, { useState } from 'react';
 import {
   Box,
   Container,
-  Grid,
   Typography,
   Accordion,
   AccordionSummary,
   AccordionDetails,
   Button,
+  Chip,
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import { HelpCircle, MessageCircle } from 'lucide-react';
+import {
+  SlidersHorizontal,
+  Moon,
+  Shield,
+  Bell,
+  HelpCircle,
+  MessageCircle,
+  ChevronDown,
+} from 'lucide-react';
 import { colors } from '../theme/colors';
 import { faqData } from '../data/faqData';
 import { getWhatsAppLink } from '../data/doctorInfo';
-import SectionHeader from '../components/common/SectionHeader';
+
+// Estilos de colores para las etiquetas según la referencia visual
+const themeStyles = {
+  green: {
+    bg: '#ECFDF5',
+    text: '#059669',
+    border: '#A7F3D0',
+  },
+  blue: {
+    bg: '#F0F9FF',
+    text: '#0284C7',
+    border: '#BAE6FD',
+  },
+  sky: {
+    bg: '#EFF6FF',
+    text: '#2563EB',
+    border: '#BFDBFE',
+  },
+  pink: {
+    bg: '#FDF2F8',
+    text: '#DB2777',
+    border: '#FBCFE8',
+  },
+  neutral: {
+    bg: '#F8FAFC',
+    text: '#64748B',
+    border: '#E2E8F0',
+  },
+};
+
+// Ícono temático para cada categoría
+const getCategoryIcon = (type) => {
+  switch (type) {
+    case 'sliders':
+      return <SlidersHorizontal size={13} strokeWidth={2.4} />;
+    case 'moon':
+      return <Moon size={13} strokeWidth={2.4} />;
+    case 'shield':
+      return <Shield size={13} strokeWidth={2.4} />;
+    case 'bell':
+      return <Bell size={13} strokeWidth={2.4} />;
+    default:
+      return <HelpCircle size={13} strokeWidth={2.4} />;
+  }
+};
 
 export default function FAQ() {
-  const [expanded, setExpanded] = useState('panel0');
+  const [expanded, setExpanded] = useState('colonoscopia-preparacion');
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -28,173 +79,213 @@ export default function FAQ() {
     <Box
       id="faq"
       sx={{
-        py: { xs: 4.5, md: 6.5 },
+        py: { xs: 4, md: 6 },
         backgroundColor: '#FFFFFF',
         borderBottom: `1px solid ${colors.border.light}`,
       }}
     >
       <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 5 } }}>
-        <SectionHeader
-          chipLabel="Claridad & Confianza"
-          title="Preguntas Frecuentes sobre"
-          highlightWord="Procedimientos y Citas"
-          subtitle="Conoce detalles importantes sobre la sedación, preparación previa y cómo agendar tu consulta."
-          chipColor="primary"
-        />
-
-        {/* Preguntas Frecuentes en Grid de 2 Columnas (6 y 6) */}
-        <Grid container spacing={2.5} sx={{ mb: 4 }}>
-          {/* Columna Izquierda (3 preguntas) */}
-          <Grid item xs={12} md={6}>
-            {faqData.slice(0, 3).map((faq, index) => {
-              const panelId = `panel${index}`;
-              const isCurrentExpanded = expanded === panelId;
-
-              return (
-                <Accordion
-                  key={index}
-                  expanded={isCurrentExpanded}
-                  onChange={handleChange(panelId)}
-                  sx={{
-                    mb: 1.5,
-                    borderRadius: '14px !important',
-                    border: `1.5px solid ${isCurrentExpanded ? colors.primary.light : colors.border.light}`,
-                    boxShadow: isCurrentExpanded ? '0 6px 20px rgba(2, 136, 209, 0.08)' : 'none',
-                    '&::before': { display: 'none' },
-                    transition: 'all 0.25s ease',
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: isCurrentExpanded ? colors.primary.main : colors.text.secondary }} />}
-                    sx={{
-                      px: 2.5,
-                      py: 0.8,
-                      '& .MuiAccordionSummary-content': { my: 1 },
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        fontWeight: 700,
-                        color: isCurrentExpanded ? colors.primary.dark : colors.text.primary,
-                        fontSize: '0.94rem',
-                      }}
-                    >
-                      {faq.question}
-                    </Typography>
-                  </AccordionSummary>
-
-                  <AccordionDetails sx={{ px: 2.5, pb: 2.5, pt: 0 }}>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: colors.text.secondary,
-                        lineHeight: 1.65,
-                        fontSize: '0.88rem',
-                      }}
-                    >
-                      {faq.answer}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              );
-            })}
-          </Grid>
-
-          {/* Columna Derecha (3 preguntas) */}
-          <Grid item xs={12} md={6}>
-            {faqData.slice(3, 6).map((faq, index) => {
-              const actualIndex = index + 3;
-              const panelId = `panel${actualIndex}`;
-              const isCurrentExpanded = expanded === panelId;
-
-              return (
-                <Accordion
-                  key={actualIndex}
-                  expanded={isCurrentExpanded}
-                  onChange={handleChange(panelId)}
-                  sx={{
-                    mb: 1.5,
-                    borderRadius: '14px !important',
-                    border: `1.5px solid ${isCurrentExpanded ? colors.primary.light : colors.border.light}`,
-                    boxShadow: isCurrentExpanded ? '0 6px 20px rgba(2, 136, 209, 0.08)' : 'none',
-                    '&::before': { display: 'none' },
-                    transition: 'all 0.25s ease',
-                  }}
-                >
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon sx={{ color: isCurrentExpanded ? colors.primary.main : colors.text.secondary }} />}
-                    sx={{
-                      px: 2.5,
-                      py: 0.8,
-                      '& .MuiAccordionSummary-content': { my: 1 },
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        fontWeight: 700,
-                        color: isCurrentExpanded ? colors.primary.dark : colors.text.primary,
-                        fontSize: '0.94rem',
-                      }}
-                    >
-                      {faq.question}
-                    </Typography>
-                  </AccordionSummary>
-
-                  <AccordionDetails sx={{ px: 2.5, pb: 2.5, pt: 0 }}>
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: colors.text.secondary,
-                        lineHeight: 1.65,
-                        fontSize: '0.88rem',
-                      }}
-                    >
-                      {faq.answer}
-                    </Typography>
-                  </AccordionDetails>
-                </Accordion>
-              );
-            })}
-          </Grid>
-        </Grid>
-
-        {/* Bloque de duda adicional */}
         <Box
           sx={{
-            textAlign: 'center',
-            p: 3.5,
-            borderRadius: 4,
-            backgroundColor: colors.primary.lighter,
-            border: `1px solid ${colors.primary.light}`,
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '360px 1fr', lg: '400px 1fr' },
+            gap: { xs: 3.5, md: 5, lg: 6 },
+            alignItems: 'start',
           }}
         >
-          <Typography variant="h6" sx={{ fontWeight: 800, color: colors.primary.darker, mb: 1 }}>
-            ¿Tienes alguna otra duda o consulta especial?
-          </Typography>
-          <Typography variant="body2" sx={{ color: colors.text.secondary, mb: 2.5, maxWidth: 500, mx: 'auto' }}>
-            Escríbenos con toda confianza. Te responderemos personalmente para brindarte toda la información que necesitas.
-          </Typography>
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<WhatsAppIcon />}
-            component="a"
-            href={getWhatsAppLink('Hola Dra. Nery, tengo una pregunta antes de agendar mi consulta')}
-            target="_blank"
-            rel="noopener noreferrer"
-            sx={{
-              backgroundColor: '#25D366',
-              color: '#ffffff',
-              px: 3.5,
-              py: 1.2,
-              fontWeight: 700,
-              '&:hover': { backgroundColor: '#1EBE5D' },
-            }}
-          >
-            Hacer una Pregunta por WhatsApp
-          </Button>
+          {/* Columna Izquierda: Título y texto explicativo a un lado */}
+          <Box sx={{ position: { md: 'sticky' }, top: 90 }}>
+            <Chip
+              label="Claridad & Confianza"
+              size="small"
+              sx={{
+                mb: 1.5,
+                px: 1,
+                py: 0.3,
+                fontSize: '0.74rem',
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.08em',
+                borderColor: colors.primary.light,
+                backgroundColor: colors.primary.lighter,
+                color: colors.primary.dark,
+                border: `1px solid ${colors.primary.light}`,
+              }}
+            />
+
+            <Typography
+              variant="h3"
+              sx={{
+                fontSize: { xs: '1.85rem', sm: '2.1rem', md: '2.4rem' },
+                fontWeight: 800,
+                lineHeight: 1.2,
+                color: colors.text.primary,
+                mb: 1.5,
+              }}
+            >
+              Preguntas Frecuentes sobre{' '}
+              <Box
+                component="span"
+                sx={{
+                  color: colors.primary.main,
+                  display: 'inline',
+                }}
+              >
+                Procedimientos y Citas
+              </Box>
+            </Typography>
+
+            <Typography
+              variant="body1"
+              sx={{
+                color: colors.text.secondary,
+                lineHeight: 1.7,
+                fontSize: '0.95rem',
+                mb: 3,
+              }}
+            >
+              Resolvemos tus principales dudas sobre la preparación, sedación sin dolor y cómo coordinar tu atención médica con tranquilidad.
+            </Typography>
+          </Box>
+
+          {/* Columna Derecha: Lista de las 4 preguntas estilizadas como en la imagen */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.8 }}>
+            {faqData.map((faq) => {
+              const panelId = faq.id;
+              const isCurrentExpanded = expanded === panelId;
+              const chipStyle = themeStyles[faq.categoryTheme] || themeStyles.blue;
+              const subtagStyle = themeStyles[faq.subtagTheme] || themeStyles.neutral;
+
+              return (
+                <Accordion
+                  key={faq.id}
+                  expanded={isCurrentExpanded}
+                  onChange={handleChange(panelId)}
+                  elevation={0}
+                  sx={{
+                    borderRadius: '18px !important',
+                    border: `1.5px solid ${isCurrentExpanded ? colors.primary.light : '#E2E8F0'}`,
+                    boxShadow: isCurrentExpanded
+                      ? '0 8px 25px rgba(2, 136, 209, 0.08)'
+                      : '0 2px 10px rgba(15, 23, 42, 0.02)',
+                    backgroundColor: '#FFFFFF',
+                    overflow: 'hidden',
+                    transition: 'all 0.25s ease',
+                    '&::before': { display: 'none' },
+                    '&:hover': {
+                      borderColor: isCurrentExpanded ? colors.primary.light : '#CBD5E1',
+                    },
+                  }}
+                >
+                  <AccordionSummary
+                    expandIcon={
+                      <Box
+                        sx={{
+                          width: 34,
+                          height: 34,
+                          borderRadius: '50%',
+                          backgroundColor: '#F1F5F9',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          transition: 'background-color 0.2s',
+                          '&:hover': { backgroundColor: '#E2E8F0' },
+                        }}
+                      >
+                        <ChevronDown size={18} color="#475569" strokeWidth={2.2} />
+                      </Box>
+                    }
+                    sx={{
+                      p: { xs: 2, sm: 2.5 },
+                      '& .MuiAccordionSummary-content': {
+                        my: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 1.2,
+                        pr: 1,
+                      },
+                      '& .MuiAccordionSummary-expandIconWrapper': {
+                        transition: 'transform 0.25s ease',
+                      },
+                      '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+                        transform: 'rotate(180deg)',
+                      },
+                    }}
+                  >
+                    {/* Fila superior: Badges como en la imagen */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
+                      {/* Badge Principal */}
+                      <Box
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 0.6,
+                          px: 1.2,
+                          py: 0.35,
+                          borderRadius: '8px',
+                          fontSize: '0.74rem',
+                          fontWeight: 700,
+                          backgroundColor: chipStyle.bg,
+                          color: chipStyle.text,
+                          border: `1px solid ${chipStyle.border}`,
+                        }}
+                      >
+                        {getCategoryIcon(faq.iconType)}
+                        <span>{faq.category}</span>
+                      </Box>
+
+                      {/* Badge Secundario */}
+                      {faq.subtag && (
+                        <Box
+                          sx={{
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            px: 1,
+                            py: 0.35,
+                            borderRadius: '8px',
+                            fontSize: '0.72rem',
+                            fontWeight: 600,
+                            backgroundColor: subtagStyle.bg,
+                            color: subtagStyle.text,
+                            border: `1px solid ${subtagStyle.border}`,
+                          }}
+                        >
+                          <span>{faq.subtag}</span>
+                        </Box>
+                      )}
+                    </Box>
+
+                    {/* Pregunta */}
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 700,
+                        color: colors.text.primary,
+                        fontSize: { xs: '0.98rem', sm: '1.04rem' },
+                        lineHeight: 1.35,
+                      }}
+                    >
+                      {faq.question}
+                    </Typography>
+                  </AccordionSummary>
+
+                  <AccordionDetails sx={{ px: { xs: 2, sm: 2.5 }, pb: 2.5, pt: 0 }}>
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: colors.text.secondary,
+                        lineHeight: 1.65,
+                        fontSize: '0.9rem',
+                      }}
+                    >
+                      {faq.answer}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              );
+            })}
+          </Box>
         </Box>
       </Container>
     </Box>

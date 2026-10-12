@@ -1,6 +1,14 @@
-import React from 'react';
-import { Box, Container, Grid, Typography, Card, CardContent, Chip } from '@mui/material';
-import { Flame, Wind, Activity, AlertCircle, Clock, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { Box, Container, Typography, Card, CardContent, Chip } from '@mui/material';
+import {
+  Flame,
+  Wind,
+  Activity,
+  AlertCircle,
+  Clock,
+  ShieldCheck,
+  Stethoscope,
+} from 'lucide-react';
 import { colors } from '../theme/colors';
 import { symptomsData } from '../data/symptomsData';
 import SectionHeader from '../components/common/SectionHeader';
@@ -14,124 +22,333 @@ const iconMap = {
   'shield-check': ShieldCheck,
 };
 
-export default function Symptoms({ onOpenAppointmentModal }) {
+// Paleta temática personalizada por síntoma
+const symptomThemes = {
+  flame: {
+    color: '#D97706',
+    bg: '#FEF3C7',
+    border: '#FDE68A',
+    badge: 'Molestia Gástrica',
+  },
+  wind: {
+    color: '#0284C7',
+    bg: '#E0F2FE',
+    border: '#BAE6FD',
+    badge: 'Inflamación',
+  },
+  activity: {
+    color: '#6366F1',
+    bg: '#EEF2FF',
+    border: '#C7D2FE',
+    badge: 'Tránsito Digestivo',
+  },
+  'alert-circle': {
+    color: '#E11D48',
+    bg: '#FFE4E6',
+    border: '#FECDD3',
+    badge: 'Alerta Prioritaria',
+  },
+  clock: {
+    color: '#0D9488',
+    bg: '#CCFBF1',
+    border: '#99F6E4',
+    badge: 'Dolor Recurrente',
+  },
+  'shield-check': {
+    color: '#059669',
+    bg: '#D1FAE5',
+    border: '#A7F3D0',
+    badge: 'Prevención Activa',
+  },
+};
+
+export default function Symptoms() {
+  const [activeCardId, setActiveCardId] = useState(null);
+
   return (
     <Box
       id="sintomas"
       sx={{
-        py: { xs: 4.5, md: 6.5 },
-        backgroundColor: '#FFFFFF',
+        py: { xs: 3.5, md: 5 },
+        position: 'relative',
+        overflow: 'hidden',
+        // Fondo con gradiente radial similar al Hero pero en paleta menta, índigo y cielo sobre blanco suave
+        background: `radial-gradient(circle at 85% 15%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+                     radial-gradient(circle at 15% 80%, rgba(99, 102, 241, 0.07) 0%, transparent 45%),
+                     radial-gradient(circle at 50% 50%, rgba(2, 136, 209, 0.06) 0%, transparent 50%),
+                     #F8FAFC`,
         borderBottom: `1px solid ${colors.border.light}`,
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 5 } }}>
+      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 4 } }}>
         <SectionHeader
-          chipLabel="Guía Médica Educativa"
+          chipLabel="Señales de Alerta"
           title="¿Cuándo deberías consultar con un"
           highlightWord="Gastroenterólogo?"
           subtitle="Identificar las señales a tiempo permite tratar los problemas estomacales e intestinales con mayor efectividad y evitar complicaciones."
           chipColor="primary"
         />
 
-        <Grid container spacing={2.5}>
+        {/* Cuadrícula compacta de 3 columnas (2 filas de 3) */}
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(3, 1fr)',
+            },
+            gap: { xs: 2, sm: 2.2 },
+            width: '100%',
+          }}
+        >
           {symptomsData.map((item, idx) => {
             const IconComponent = iconMap[item.icon] || Activity;
+            const theme = symptomThemes[item.icon] || symptomThemes.flame;
+            const isActive = activeCardId === idx;
             const isAlert = item.icon === 'alert-circle';
 
             return (
-              <Grid item xs={12} sm={6} md={4} key={idx}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'space-between',
-                    p: 1,
-                    borderRadius: 3.5,
-                    border: `1.5px solid ${isAlert ? colors.secondary.light : colors.border.light}`,
-                    backgroundColor: isAlert ? colors.secondary.lighter : '#ffffff',
-                    transition: 'all 0.25s ease',
-                    '&:hover': {
-                      borderColor: colors.primary.main,
-                      transform: 'translateY(-3px)',
-                      boxShadow: '0 10px 24px rgba(2, 136, 209, 0.09)',
-                    },
-                  }}
-                >
-                  <CardContent sx={{ p: 1.5 }}>
-                    {/* Encabezado Horizontal: Icono + Título al lado */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 1.5 }}>
-                      <Box
-                        sx={{
-                          width: 40,
-                          height: 40,
-                          borderRadius: '10px',
-                          backgroundColor: isAlert ? colors.secondary.main : colors.primary.lighter,
-                          color: isAlert ? '#ffffff' : colors.primary.main,
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          flexShrink: 0,
-                        }}
-                      >
-                        <IconComponent size={20} />
-                      </Box>
-                      <Typography
-                        variant="subtitle1"
-                        sx={{
-                          fontWeight: 800,
-                          color: colors.text.primary,
-                          fontSize: '1.02rem',
-                          lineHeight: 1.25,
-                        }}
-                      >
-                        {item.title}
-                      </Typography>
-                    </Box>
-
-                    <Typography
-                      variant="body2"
-                      sx={{
-                        color: colors.text.secondary,
-                        lineHeight: 1.55,
-                        mb: 1.8,
-                        fontSize: '0.86rem',
-                        minHeight: 40,
-                      }}
-                    >
-                      {item.description}
-                    </Typography>
-
+              <Card
+                key={idx}
+                elevation={0}
+                className={isActive ? 'card-active' : ''}
+                onMouseEnter={() => setActiveCardId(idx)}
+                onMouseLeave={() => setActiveCardId(null)}
+                onClick={() => setActiveCardId((prev) => (prev === idx ? null : idx))}
+                sx={{
+                  position: 'relative',
+                  height: '100%',
+                  minHeight: { xs: 195, sm: 210 },
+                  display: 'flex',
+                  flexDirection: 'column',
+                  p: { xs: 1.8, sm: 2 },
+                  borderRadius: 3,
+                  border: `1.5px solid ${isAlert ? theme.border : '#E2E8F0'}`,
+                  backgroundColor: '#FFFFFF',
+                  cursor: 'pointer',
+                  overflow: 'hidden',
+                  transition: 'all 0.32s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover, &.card-active': {
+                    borderColor: theme.color,
+                    transform: 'translateY(-5px)',
+                    boxShadow: `0 12px 26px ${theme.color}18`,
+                  },
+                  '&:hover .default-view, &.card-active .default-view': {
+                    opacity: 0,
+                    transform: 'translateY(-8px)',
+                    pointerEvents: 'none',
+                  },
+                  '&:hover .hover-view, &.card-active .hover-view': {
+                    opacity: 1,
+                    transform: 'translateY(0)',
+                    pointerEvents: 'auto',
+                  },
+                  '&:hover .symptom-icon-box, &.card-active .symptom-icon-box': {
+                    transform: 'scale(1.08) rotate(3deg)',
+                  },
+                }}
+              >
+                <CardContent sx={{ p: 0, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                  {/* Encabezado: Ícono temático + Badge */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      mb: 1.2,
+                    }}
+                  >
                     <Box
+                      className="symptom-icon-box"
                       sx={{
-                        p: 1,
-                        borderRadius: 2,
-                        backgroundColor: isAlert ? '#ffffff' : colors.background.subtle,
-                        mb: 1.2,
+                        width: 38,
+                        height: 38,
+                        borderRadius: '10px',
+                        backgroundColor: theme.bg,
+                        color: theme.color,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                        transition: 'transform 0.3s ease',
                       }}
                     >
-                      <Typography variant="caption" sx={{ display: 'block', color: colors.text.muted, fontSize: '0.72rem' }}>
-                        Posible causa: <strong>{item.potentialCondition}</strong>
-                      </Typography>
+                      <IconComponent size={20} strokeWidth={2.2} />
                     </Box>
 
                     <Chip
-                      label={item.recommendedService}
+                      label={theme.badge}
                       size="small"
                       sx={{
-                        backgroundColor: colors.primary.lighter,
-                        color: colors.primary.dark,
+                        backgroundColor: theme.bg,
+                        color: theme.color,
+                        border: `1px solid ${theme.border}`,
                         fontWeight: 700,
-                        fontSize: '0.7rem',
+                        fontSize: '0.68rem',
+                        height: 22,
                         borderRadius: 1.5,
                       }}
                     />
-                  </CardContent>
-                </Card>
-              </Grid>
+                  </Box>
+
+                  {/* Título del Síntoma */}
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      fontWeight: 800,
+                      color: colors.text.primary,
+                      fontSize: { xs: '0.98rem', sm: '1.03rem' },
+                      lineHeight: 1.25,
+                      mb: 1,
+                      minHeight: { sm: '2.5rem' },
+                      display: '-webkit-box',
+                      WebkitLineClamp: 2,
+                      WebkitBoxOrient: 'vertical',
+                      overflow: 'hidden',
+                    }}
+                  >
+                    {item.title}
+                  </Typography>
+
+                  {/* Contenedor dinámico (Alterna Descripción e Indicación Médica) */}
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      flexGrow: 1,
+                      minHeight: { xs: 90, sm: 95 },
+                    }}
+                  >
+                    {/* VISTA 1 (Sin Hover): Descripción de cómo se manifiesta */}
+                    <Box
+                      className="default-view"
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        opacity: 1,
+                        transform: 'translateY(0)',
+                      }}
+                    >
+                      <Typography
+                        variant="body2"
+                        sx={{
+                          color: colors.text.secondary,
+                          fontSize: '0.82rem',
+                          lineHeight: 1.5,
+                          display: '-webkit-box',
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {item.description}
+                      </Typography>
+
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 0.5,
+                          mt: 'auto',
+                          pt: 0.6,
+                        }}
+                      >
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: theme.color,
+                            fontWeight: 700,
+                            fontSize: '0.7rem',
+                          }}
+                        >
+                          Ver evaluación clínica sugerida →
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    {/* VISTA 2 (En Hover): Posible causa + Estudio recomendado */}
+                    <Box
+                      className="hover-view"
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
+                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                        opacity: 0,
+                        transform: 'translateY(10px)',
+                        pointerEvents: 'none',
+                      }}
+                    >
+                      <Box>
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            display: 'block',
+                            fontWeight: 800,
+                            color: colors.text.muted,
+                            textTransform: 'uppercase',
+                            letterSpacing: '0.04em',
+                            fontSize: '0.65rem',
+                            mb: 0.3,
+                          }}
+                        >
+                          Posible causa:
+                        </Typography>
+                        <Typography
+                          variant="body2"
+                          sx={{
+                            color: colors.text.primary,
+                            fontSize: '0.78rem',
+                            fontWeight: 600,
+                            lineHeight: 1.35,
+                          }}
+                        >
+                          {item.potentialCondition}
+                        </Typography>
+                      </Box>
+
+                      {/* Servicio recomendado */}
+                      <Box
+                        sx={{
+                          mt: 0.8,
+                          p: 0.6,
+                          px: 1,
+                          borderRadius: 1.5,
+                          backgroundColor: theme.bg,
+                          border: `1px solid ${theme.border}`,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 0.6,
+                        }}
+                      >
+                        <Stethoscope size={13} color={theme.color} style={{ flexShrink: 0 }} />
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: theme.color,
+                            fontWeight: 700,
+                            fontSize: '0.71rem',
+                            whiteSpace: 'nowrap',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                          }}
+                        >
+                          {item.recommendedService}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </Box>
+                </CardContent>
+              </Card>
             );
           })}
-        </Grid>
+        </Box>
       </Container>
     </Box>
   );

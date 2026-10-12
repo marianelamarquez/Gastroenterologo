@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Button, Chip, Stack } from '@mui/material';
+import { Box, Container, Grid, Typography, Button, Stack } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Clock, Heart, Sparkles, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 import { colors } from '../theme/colors';
 import { doctorInfo } from '../data/doctorInfo';
-import MedicalImage from '../components/common/MedicalImage';
 
 export default function Hero({ onOpenAppointmentModal }) {
   const scrollToProcedures = () => {
@@ -41,7 +40,7 @@ export default function Hero({ onOpenAppointmentModal }) {
                   fontWeight: 800,
                   lineHeight: { xs: 1.15, md: 1.1 },
                   color: colors.text.primary,
-                  mb: 2,
+                  mb: 2.5,
                 }}
               >
                 Cuidado integral de tu salud digestiva con{' '}
@@ -87,9 +86,10 @@ export default function Hero({ onOpenAppointmentModal }) {
                 variant="body1"
                 sx={{
                   color: colors.text.secondary,
-                  fontSize: { xs: '1rem', md: '1.12rem' },
-                  lineHeight: 1.75,
-                  maxWidth: 620,
+                  fontSize: { xs: '1.05rem', md: '1.15rem' },
+                  lineHeight: 1.8,
+                  maxWidth: 720,
+                  mx: 'auto',
                   mb: 4,
                 }}
               >
@@ -102,7 +102,9 @@ export default function Hero({ onOpenAppointmentModal }) {
               <Stack
                 direction={{ xs: 'column', sm: 'row' }}
                 spacing={2}
-                sx={{ mb: 5 }}
+                justifyContent="center"
+                alignItems="center"
+                sx={{ mb: 4.5 }}
               >
                 <Button
                   variant="contained"
@@ -142,8 +144,8 @@ export default function Hero({ onOpenAppointmentModal }) {
                 </Button>
               </Stack>
 
-              {/* Píldoras de Confianza Rápidas en Grid Horizontal */}
-              <Grid container spacing={1.5}>
+              {/* Píldoras de Confianza Rápidas en Grid Horizontal Centrado */}
+              <Grid container spacing={1.5} justifyContent="center" sx={{ maxWidth: 840, mx: 'auto' }}>
                 {[
                   'Gastroscopia y Colonoscopia Segura',
                   'Atención de 8:00 AM a 2:00 PM',
@@ -154,8 +156,9 @@ export default function Hero({ onOpenAppointmentModal }) {
                       sx={{
                         display: 'flex',
                         alignItems: 'center',
+                        justifyContent: 'center',
                         gap: 1,
-                        p: 1,
+                        p: 1.2,
                         borderRadius: 2.5,
                         backgroundColor: 'rgba(255, 255, 255, 0.7)',
                         border: `1px solid ${colors.border.light}`,
@@ -177,46 +180,53 @@ export default function Hero({ onOpenAppointmentModal }) {
         <Box
           sx={{
             mt: { xs: 3.5, md: 4.5 },
-            p: { xs: 2, md: 2.5 },
+            p: { xs: 2.5, md: 3 },
             borderRadius: 4,
             background: 'linear-gradient(135deg, #F8FAFC 0%, #FFFFFF 100%)',
             border: `1px solid ${colors.border.light}`,
             boxShadow: '0 10px 30px rgba(15, 23, 42, 0.04)',
+            width: '100%',
           }}
         >
-          <Grid container spacing={3}>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' },
+              gap: { xs: 2, md: 3 },
+              alignItems: 'center',
+              width: '100%',
+            }}
+          >
             {doctorInfo.stats.map((stat, idx) => (
-              <Grid item xs={6} md={3} key={idx}>
-                <Box sx={{ textAlign: 'center', px: 1 }}>
-                  <Typography
-                    variant="h3"
-                    sx={{
-                      fontSize: { xs: '1.75rem', md: '2.25rem' },
-                      fontWeight: 800,
-                      color:
-                        idx === 0
-                          ? colors.primary.main
-                          : idx === 1
-                            ? colors.secondary.main
-                            : idx === 2
-                              ? colors.accent.main
-                              : colors.primary.dark,
-                      lineHeight: 1.1,
-                      mb: 0.5,
-                    }}
-                  >
-                    {stat.value}
-                  </Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: colors.text.primary, fontSize: '0.9rem' }}>
-                    {stat.label}
-                  </Typography>
-                  <Typography variant="caption" sx={{ color: colors.text.muted }}>
-                    {stat.highlight}
-                  </Typography>
-                </Box>
-              </Grid>
+              <Box key={idx} sx={{ textAlign: 'center', px: 1 }}>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontSize: { xs: '1.75rem', md: '2.25rem' },
+                    fontWeight: 800,
+                    color:
+                      idx === 0
+                        ? colors.primary.main
+                        : idx === 1
+                          ? colors.secondary.main
+                          : idx === 2
+                            ? colors.accent.main
+                            : colors.primary.dark,
+                    lineHeight: 1.1,
+                    mb: 0.5,
+                  }}
+                >
+                  {stat.value}
+                </Typography>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: colors.text.primary, fontSize: '0.9rem' }}>
+                  {stat.label}
+                </Typography>
+                <Typography variant="caption" sx={{ color: colors.text.muted }}>
+                  {stat.highlight}
+                </Typography>
+              </Box>
             ))}
-          </Grid>
+          </Box>
         </Box>
       </Container >
     </Box >

@@ -17,9 +17,10 @@ export const doctorInfo = {
   location: {
     clinicName: 'Centro de Especialidades Anzoátegui',
     address: 'Av. Principal, Planta Baja, Nucleo A, Consultorio 1',
-    city: 'Lecheria Anzoátegui, Venezuela', // Editable según la ciudad exacta
+    city: 'Lecheria 6010, Anzoátegui, Venezuela',
     reference: 'Fácil acceso y estacionamiento disponible',
-    googleMapsUrl: 'https://maps.google.com',
+    plusCode: '58G8+7C6, Lechería 6010, Anzoátegui',
+    googleMapsUrl: 'https://maps.google.com/?q=58G8%2B7C6,+Lecher%C3%ADa+6010,+Anzo%C3%A1tegui',
   },
 
   // Contacto y Canales de Atención

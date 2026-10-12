@@ -24,64 +24,6 @@ export default function Footer({ onOpenAppointmentModal }) {
     >
       <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 5 } }}>
         <Grid container spacing={{ xs: 4, md: 6 }}>
-          {/* Columna 1: Perfil y Especialidad */}
-          <Grid item xs={12} md={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
-              <Box
-                sx={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: '12px',
-                  backgroundColor: colors.primary.main,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                }}
-              >
-                <Activity size={24} />
-              </Box>
-              <Box>
-                <Typography
-                  variant="h6"
-                  sx={{
-                    color: '#ffffff',
-                    fontWeight: 800,
-                    fontSize: '1.2rem',
-                    lineHeight: 1.2,
-                  }}
-                >
-                  {doctorInfo.name}
-                </Typography>
-                <Typography variant="caption" sx={{ color: colors.primary.light }}>
-                  {doctorInfo.specialty}
-                </Typography>
-              </Box>
-            </Box>
-
-            <Typography
-              variant="body2"
-              sx={{ color: '#94A3B8', mb: 3, lineHeight: 1.7, fontSize: '0.9rem' }}
-            >
-              Atención médica de alta especialidad en gastroenterología y endoscopia digestiva.
-              Compromiso, ética y calidez humana para el cuidado integral de tu salud digestiva.
-            </Typography>
-
-            <Chip
-              icon={<Clock size={14} color="#6EE7B7" />}
-              label={doctorInfo.schedule}
-              size="small"
-              sx={{
-                backgroundColor: 'rgba(16, 185, 129, 0.12)',
-                color: '#6EE7B7',
-                border: '1px solid rgba(16, 185, 129, 0.3)',
-                fontWeight: 600,
-                fontSize: '0.78rem',
-                py: 0.5,
-              }}
-            />
-          </Grid>
-
           {/* Columna 2: Procedimientos y Servicios */}
           <Grid item xs={12} sm={6} md={2.5}>
             <Typography
@@ -130,7 +72,7 @@ export default function Footer({ onOpenAppointmentModal }) {
               {[
                 { label: 'Inicio', href: '#inicio' },
                 { label: 'Sobre la Doctora', href: '#sobre-mi' },
-                { label: 'Servicios Clínicos', href: '#servicios' },
+                { label: 'Telemedicina', href: '#telemedicina' },
                 { label: 'Guía de Síntomas', href: '#sintomas' },
                 { label: 'Preguntas Frecuentes', href: '#faq' },
                 { label: 'Consultorio y Horarios', href: '#ubicacion' },
@@ -190,30 +132,6 @@ export default function Footer({ onOpenAppointmentModal }) {
                   Consultar por WhatsApp
                 </Link>
               </Box>
-
-              <Box sx={{ mt: 1 }}>
-                <Box
-                  component="button"
-                  onClick={onOpenAppointmentModal}
-                  sx={{
-                    width: '100%',
-                    py: 1.2,
-                    px: 2,
-                    borderRadius: 30,
-                    border: 'none',
-                    background: colors.gradients.primaryButton,
-                    color: '#ffffff',
-                    fontWeight: 700,
-                    fontSize: '0.9rem',
-                    cursor: 'pointer',
-                    boxShadow: '0 4px 15px rgba(2, 136, 209, 0.3)',
-                    transition: 'opacity 0.2s',
-                    '&:hover': { opacity: 0.9 },
-                  }}
-                >
-                  Solicitar Cita Médica
-                </Box>
-              </Box>
             </Box>
           </Grid>
         </Grid>
@@ -245,8 +163,7 @@ export default function Footer({ onOpenAppointmentModal }) {
               whiteSpace: 'nowrap',
             }}
           >
-            © {new Date().getFullYear()} {doctorInfo.name}. Hecho con{' '}
-            <Heart size={14} color="#F472B6" fill="#F472B6" />
+            © {new Date().getFullYear()} {doctorInfo.name}.
           </Typography>
         </Box>
       </Container>

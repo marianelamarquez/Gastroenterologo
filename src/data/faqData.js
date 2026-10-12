@@ -1,30 +1,46 @@
 /**
- * PREGUNTAS FRECUENTES (FAQ) DE PACIENTES
+ * PREGUNTAS FRECUENTES (FAQ) DE PACIENTES 
  */
 
 export const faqData = [
   {
-    question: '¿Los estudios endoscópicos como la gastroscopia o colonoscopia duelen?',
-    answer: 'No. Los procedimientos se realizan bajo una sedación consciente suave y controlada administrada por especialistas. El paciente permanece totalmente relajado, cómodo y sin dolor durante todo el estudio, despertando pocos minutos después sin malestar.',
+    id: 'colonoscopia-preparacion',
+    category: 'Preparación Previa',
+    categoryTheme: 'green',
+    iconType: 'sliders',
+    subtag: 'Protocolo Seguro',
+    subtagTheme: 'neutral',
+    question: '¿Cómo debo prepararme para una colonoscopia y garantizar un estudio limpio?',
+    answer: 'Para una colonoscopia exitosa se requiere una dieta líquida el día anterior y la toma de una solución evacuante indicada para limpiar por completo el colon. Al momento de agendar te facilitamos las instrucciones detalladas paso a paso para que el procedimiento sea rápido, seguro y con la máxima visibilidad diagnóstica.',
   },
   {
-    question: '¿Cuáles son los horarios de atención de la Dra. Nery Betancourt?',
-    answer: 'Las consultas y procedimientos se atienden de Lunes a Viernes de 8:00 AM a 2:00 PM, siempre bajo previa cita concertada para garantizar que cada paciente reciba el tiempo y la atención médica dedicada que merece sin demoras.',
+    id: 'sedacion-dolor',
+    category: 'Procedimientos y Sedación',
+    categoryTheme: 'blue',
+    iconType: 'moon',
+    subtag: '100% Sin Dolor',
+    subtagTheme: 'green',
+    question: '¿Los exámenes de endoscopia y colonoscopia duelen o causan asfixia?',
+    answer: 'No, en lo absoluto. Ambos estudios se efectúan bajo sedación profunda supervisada y monitoreada. Permaneces completamente dormido, relajado y sin dolor ni sensación de asfixia o náuseas. Al terminar, despiertas en pocos minutos en la sala de recuperación sin molestias.',
   },
   {
-    question: '¿Cómo funciona la Telemedicina si vivo en el exterior?',
-    answer: 'Es un servicio ideal si estás fuera del país. Agendas tu cita a través de WhatsApp o nuestro formulario, nos envías tus antecedentes e informes previos digitalizados, y nos conectamos por videollamada segura. La Dra. Nery revisará tu caso, te brindará orientación clínica experta y te emitirá informe con el plan terapéutico.',
+    id: 'seguros-reembolso',
+    category: 'Seguros y Pagos',
+    categoryTheme: 'sky',
+    iconType: 'shield',
+    subtag: 'Convenios y Reembolso',
+    subtagTheme: 'neutral',
+    question: '¿Aceptan seguros médicos privados y ofrecen facilidades de reembolso?',
+    answer: 'Sí. Emitimos informes médicos completos, facturación fiscal detallada e informes de procedimiento debidamente firmados para que tramites el reembolso con tu compañía de seguros nacional o internacional sin inconvenientes.',
   },
   {
-    question: '¿Qué preparación necesito antes de una endoscopia o colonoscopia?',
-    answer: 'Para una gastroscopia se requiere un ayuno estricto de alimentos y líquidos de 8 horas. Para una colonoscopia, se suministra una guía de dieta líquida y solución evacuante el día previo para limpiar completamente las paredes del colon. Te facilitaremos todas las instrucciones detalladas paso a paso al momento de agendar.',
-  },
-  {
-    question: '¿Qué es una CPRE y cuándo está indicada?',
-    answer: 'La CPRE (Colangiopancreatografía Retrógrada Endoscópica) es un procedimiento avanzado que trata problemas en los conductos biliares y pancreáticos, como cálculos atorados que provocan dolor intenso o ictericia (color amarillo en los ojos). Permite extraer cálculos sin necesidad de una incisión quirúrgica grande.',
-  },
-  {
-    question: '¿Cómo puedo agendar mi cita?',
-    answer: 'Puedes hacer clic en el botón de WhatsApp o en "Solicitar Cita" en esta página. Podrás seleccionar si prefieres consulta presencial o telemedicina y enviarnos tus datos para coordinar el día y horario que mejor se adapte a ti.',
+    id: 'sintomas-diferenciacion',
+    category: 'Síntomas y Alarma',
+    categoryTheme: 'pink',
+    iconType: 'bell',
+    subtag: 'Diagnóstico',
+    subtagTheme: 'neutral',
+    question: '¿Cómo diferencio entre gastritis, colon irritable y disbiosis intestinal?',
+    answer: 'Aunque comparten inflamación y pesadez, la gastritis produce ardor en la parte alta del abdomen, mientras que el colon irritable y la disbiosis alteran el tránsito intestinal (diarrea o estreñimiento) con hinchazón. En consulta realizamos una valoración clínica integral para identificar la causa exacta y no tratar solo los síntomas.',
   },
 ];

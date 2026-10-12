@@ -11,7 +11,6 @@ import AppointmentModal from './components/modals/AppointmentModal';
 
 import Hero from './sections/Hero';
 import About from './sections/About';
-import Services from './sections/Services';
 import Procedures from './sections/Procedures';
 import Telemedicine from './sections/Telemedicine';
 import Symptoms from './sections/Symptoms';
@@ -20,15 +19,6 @@ import FAQ from './sections/FAQ';
 import AppointmentCTA from './sections/AppointmentCTA';
 
 export default function App() {
-  const [isAppointmentModalOpen, setIsAppointmentModalOpen] = useState(false);
-
-  const handleOpenAppointmentModal = () => {
-    setIsAppointmentModalOpen(true);
-  };
-
-  const handleCloseAppointmentModal = () => {
-    setIsAppointmentModalOpen(false);
-  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -42,49 +32,35 @@ export default function App() {
         }}
       >
         {/* Barra de Navegación con Horarios y Enlaces */}
-        <Navbar onOpenAppointmentModal={handleOpenAppointmentModal} />
+        <Navbar />
 
         {/* Contenido Principal de la Landing Page */}
         <Box component="main" sx={{ flexGrow: 1 }}>
           {/* 1. Portada Principal / Hero con Foto y Estadísticas */}
-          <Hero onOpenAppointmentModal={handleOpenAppointmentModal} />
+          <Hero />
 
-          {/* 2. Sobre la Dra. Nery Betancourt (Perfil, Pilares, Vocación) */}
-          <About onOpenAppointmentModal={handleOpenAppointmentModal} />
-
-          {/* 3. Servicios Clínicos Integrales */}
-          <Services onOpenAppointmentModal={handleOpenAppointmentModal} />
-
-          {/* 4. Procedimientos Endoscópicos (Gastroscopia, Colonoscopia, Rectoscopia, Polipectomías, CPRE) */}
-          <Procedures onOpenAppointmentModal={handleOpenAppointmentModal} />
+          {/* 3. Procedimientos Endoscópicos y Servicios Especializados */}
+          <Procedures />
 
           {/* 5. Telemedicina Especializada para Pacientes en el Exterior */}
-          <Telemedicine onOpenAppointmentModal={handleOpenAppointmentModal} />
+          {/*   <Telemedicine onOpenAppointmentModal={handleOpenAppointmentModal} /> */}
 
           {/* 6. Guía de Síntomas Digestivos (¿Cuándo acudir?) */}
-          <Symptoms onOpenAppointmentModal={handleOpenAppointmentModal} />
+          <Symptoms />
 
           {/* 7. Horarios (8am a 2pm previa cita) y Ubicación del Consultorio */}
-          <ScheduleAndLocation onOpenAppointmentModal={handleOpenAppointmentModal} />
+          <ScheduleAndLocation />
 
           {/* 8. Preguntas Frecuentes (FAQ sobre sedación, preparación, citas) */}
           <FAQ />
-
-          {/* 9. Llamada a la Acción de Alto Impacto */}
-          <AppointmentCTA onOpenAppointmentModal={handleOpenAppointmentModal} />
         </Box>
 
         {/* Pie de Página con Enlaces y Aviso Médico */}
-        <Footer onOpenAppointmentModal={handleOpenAppointmentModal} />
+        <Footer />
 
         {/* Botón Flotante de WhatsApp con Efecto Pulso */}
-        <WhatsAppFloat />
+        {/*   <WhatsAppFloat />*/}
 
-        {/* Modal Interactivo de Agendamiento de Cita (Fase 1 WhatsApp / Fase 2 Conexión a Base de Datos) */}
-        <AppointmentModal
-          open={isAppointmentModalOpen}
-          onClose={handleCloseAppointmentModal}
-        />
       </Box>
     </ThemeProvider>
   );

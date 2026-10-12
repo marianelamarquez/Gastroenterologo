@@ -1,237 +1,212 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Card, CardContent, Button, Chip, Stack } from '@mui/material';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import { Clock, MapPin, Video, Building2 } from 'lucide-react';
+import { Box, Container, Typography, Card, Button, Chip } from '@mui/material';
+import { Clock, MapPin, ExternalLink } from 'lucide-react';
 import { colors } from '../theme/colors';
-import { doctorInfo, getWhatsAppLink } from '../data/doctorInfo';
-import SectionHeader from '../components/common/SectionHeader';
-import MedicalImage from '../components/common/MedicalImage';
+import { doctorInfo } from '../data/doctorInfo';
 
-export default function ScheduleAndLocation({ onOpenAppointmentModal }) {
+export default function ScheduleAndLocation() {
   return (
     <Box
       id="ubicacion"
       sx={{
-        py: { xs: 4.5, md: 6.5 },
-        backgroundColor: colors.background.default,
-        borderBottom: `1px solid ${colors.border.light}`,
+        py: { xs: 4.5, md: 6 },
+        background: `linear-gradient(135deg, ${colors.primary.darker} 0%, #0369A1 60%, #0C4A6E 100%)`,
+        color: '#FFFFFF',
+        position: 'relative',
+        overflow: 'hidden',
       }}
     >
-      <Container maxWidth="xl" sx={{ px: { xs: 2, sm: 3, md: 5 } }}>
-        <SectionHeader
-          chipLabel="Horarios & Consultorio"
-          title="Atención Médica Presencial y"
-          highlightWord="Ubicación"
-          subtitle="Consultas y procedimientos programados bajo previa cita para garantizar puntualidad y privacidad."
-          chipColor="primary"
-        />
+      {/* Círculos de luz decorativos de fondo */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: -60,
+          right: -60,
+          width: 320,
+          height: 320,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(236, 72, 153, 0.22) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: -60,
+          left: -60,
+          width: 320,
+          height: 320,
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(16, 185, 129, 0.22) 0%, transparent 70%)',
+          pointerEvents: 'none',
+        }}
+      />
 
-        <Grid container spacing={{ xs: 4, md: 4.5 }} alignItems="stretch">
-          {/* Tarjeta de Horario y Modalidades */}
-          <Grid item xs={12} md={6}>
-            <Card
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1, px: { xs: 2, sm: 3, md: 4 } }}>
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: '1.05fr 0.95fr' },
+            gap: { xs: 3.5, md: 5 },
+            alignItems: 'center',
+          }}
+        >
+          {/* Lado Izquierdo: Horario de atención como texto estilizado sin card */}
+          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 1.5 }}>
+              <Chip
+                icon={<Clock size={14} color="#6EE7B7" />}
+                label="Horario de Atención"
+                sx={{
+                  backgroundColor: 'rgba(255, 255, 255, 0.12)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#FFFFFF',
+                  border: '1px solid rgba(255, 255, 255, 0.2)',
+                  fontWeight: 700,
+                  fontSize: '0.78rem',
+                  px: 0.8,
+                }}
+              />
+            </Box>
+
+            <Typography
+              variant="h3"
               sx={{
-                height: '100%',
-                p: { xs: 2.5, sm: 3.5 },
-                borderRadius: 4,
-                backgroundColor: '#ffffff',
-                border: `1.5px solid ${colors.border.light}`,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                fontWeight: 800,
+                fontSize: { xs: '1.75rem', sm: '2.1rem', md: '2.4rem' },
+                lineHeight: 1.15,
+                color: '#FFFFFF',
+                mb: 0.8,
               }}
             >
-              <Box>
-                {/* Horario de Atención Destacado */}
+              Lunes a Viernes
+            </Typography>
+
+            <Typography
+              variant="h2"
+              sx={{
+                fontWeight: 900,
+                fontSize: { xs: '2.2rem', sm: '2.7rem', md: '3.1rem' },
+                lineHeight: 1.1,
+                background: 'linear-gradient(90deg, #FFFFFF 0%, #6EE7B7 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
+                mb: 1.5,
+              }}
+            >
+              8:00 AM – 2:00 PM
+            </Typography>
+
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2, flexWrap: 'wrap' }}>
+              <Chip
+                label="Previa Cita"
+                size="small"
+                sx={{
+                  backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                  color: '#6EE7B7',
+                  border: '1px solid rgba(110, 231, 183, 0.35)',
+                  fontWeight: 700,
+                  fontSize: '0.74rem',
+                  borderRadius: 1.5,
+                }}
+              />
+              <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.75)', fontSize: '0.8rem' }}>
+                Atención puntual y personalizada
+              </Typography>
+            </Box>
+
+            <Typography
+              variant="body1"
+              sx={{
+                color: 'rgba(255, 255, 255, 0.82)',
+                lineHeight: 1.65,
+                fontSize: { xs: '0.92rem', sm: '0.98rem' },
+                maxWidth: 480,
+              }}
+            >
+              Consultas y procedimientos digestivos programados con dedicación para garantizar tu confort, privacidad y bienestar sin tiempos de espera.
+            </Typography>
+          </Box>
+
+          {/* Lado Derecho: Tarjeta de Dirección */}
+          <Card
+            elevation={0}
+            sx={{
+              p: { xs: 2.5, sm: 3 },
+              borderRadius: 3.5,
+              backgroundColor: '#FFFFFF',
+              boxShadow: '0 16px 36px rgba(0, 0, 0, 0.22)',
+              border: '1px solid rgba(255, 255, 255, 0.4)',
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 2 }}>
                 <Box
                   sx={{
-                    p: 2,
-                    borderRadius: 3,
-                    background: colors.gradients.hero,
-                    border: `1px solid ${colors.primary.light}`,
-                    mb: 2.5,
+                    width: 42,
+                    height: 42,
+                    borderRadius: '12px',
+                    backgroundColor: colors.primary.lighter,
+                    color: colors.primary.main,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 0.8 }}>
-                    <Box
-                      sx={{
-                        width: 38,
-                        height: 38,
-                        borderRadius: '10px',
-                        backgroundColor: colors.primary.main,
-                        color: '#ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Clock size={20} />
-                    </Box>
-                    <Box>
-                      <Typography variant="caption" sx={{ color: colors.primary.dark, fontWeight: 700, textTransform: 'uppercase' }}>
-                        Jornada de Consultas y Procedimientos
-                      </Typography>
-                      <Typography variant="h5" sx={{ fontWeight: 800, color: colors.text.primary, lineHeight: 1.2 }}>
-                        8:00 AM – 2:00 PM
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Chip
-                    label="Atención Exclusiva Previa Cita"
-                    size="small"
-                    sx={{
-                      backgroundColor: colors.accent.lighter,
-                      color: colors.accent.dark,
-                      fontWeight: 700,
-                      borderRadius: 1.5,
-                    }}
-                  />
+                  <MapPin size={22} />
                 </Box>
-
-                {/* Dos Modalidades en Grid 6 y 6 (Lado a Lado) */}
-                <Typography variant="subtitle2" sx={{ fontWeight: 800, color: colors.text.primary, mb: 1.5 }}>
-                  Modalidades Disponibles:
-                </Typography>
-
-                <Grid container spacing={1.5} sx={{ mb: 3 }}>
-                  {/* Presencial (6 cols) */}
-                  <Grid item xs={12} sm={6}>
-                    <Box
-                      sx={{
-                        p: 1.8,
-                        borderRadius: 3,
-                        border: `1px solid ${colors.border.light}`,
-                        backgroundColor: colors.background.default,
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 1,
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Building2 size={20} color={colors.primary.main} />
-                        <Typography variant="subtitle2" sx={{ fontWeight: 800, color: colors.text.primary }}>
-                          Presencial
-                        </Typography>
-                      </Box>
-                      <Typography variant="caption" sx={{ color: colors.text.secondary, fontSize: '0.8rem', lineHeight: 1.5 }}>
-                        Consultas y estudios endoscópicos con equipamiento esterilizado y sala de recuperación.
-                      </Typography>
-                    </Box>
-                  </Grid>
-
-                  {/* Telemedicina (6 cols) */}
-                  <Grid item xs={12} sm={6}>
-                    <Box
-                      sx={{
-                        p: 1.8,
-                        borderRadius: 3,
-                        border: `1px solid ${colors.secondary.light}`,
-                        backgroundColor: colors.secondary.lighter,
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        gap: 1,
-                      }}
-                    >
-                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                        <Video size={20} color={colors.secondary.main} />
-                        <Typography variant="subtitle2" sx={{ fontWeight: 800, color: colors.secondary.darker }}>
-                          Telemedicina
-                        </Typography>
-                      </Box>
-                      <Typography variant="caption" sx={{ color: colors.secondary.dark, fontSize: '0.8rem', lineHeight: 1.5 }}>
-                        Videoconsulta de alta calidad y revisión de exámenes para quienes residen en el exterior.
-                      </Typography>
-                    </Box>
-                  </Grid>
-                </Grid>
+                <Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 800, color: colors.text.primary, lineHeight: 1.2 }}>
+                    Dirección del Consultorio
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: colors.text.muted }}>
+                    {doctorInfo.location.city}
+                  </Typography>
+                </Box>
               </Box>
 
-              {/* Botón de agendamiento directo */}
-              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  size="large"
-                  startIcon={<CalendarMonthIcon />}
-                  onClick={onOpenAppointmentModal}
-                  sx={{ py: 1.3 }}
-                >
-                  Solicitar Cita en Horario de 8am a 2pm
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
+              <Typography variant="subtitle1" sx={{ fontWeight: 800, color: colors.text.primary, mb: 0.5, fontSize: '1.05rem' }}>
+                {doctorInfo.location.clinicName}
+              </Typography>
 
-          {/* Imagen de Instalaciones y Ubicación */}
-          <Grid item xs={12} md={6}>
-            <Card
+              <Typography variant="body2" sx={{ color: colors.text.secondary, mb: 0.8, lineHeight: 1.5, fontSize: '0.88rem' }}>
+                {doctorInfo.location.address}
+              </Typography>
+
+              <Typography variant="caption" sx={{ color: colors.text.muted, display: 'block', mb: 2.5 }}>
+                {doctorInfo.location.reference}
+              </Typography>
+            </Box>
+
+            <Button
+              fullWidth
+              variant="contained"
+              color="primary"
+              startIcon={<MapPin size={18} />}
+              endIcon={<ExternalLink size={15} />}
+              component="a"
+              href={doctorInfo.location.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
               sx={{
-                height: '100%',
-                p: { xs: 2.5, sm: 4 },
-                borderRadius: 4,
-                backgroundColor: '#ffffff',
-                border: `1.5px solid ${colors.border.light}`,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'space-between',
+                py: 1.2,
+                fontWeight: 700,
+                borderRadius: 2,
+                boxShadow: '0 4px 14px rgba(2, 136, 209, 0.25)',
+                '&:hover': {
+                  boxShadow: '0 6px 18px rgba(2, 136, 209, 0.35)',
+                },
               }}
             >
-              <Box>
-                <Typography variant="subtitle1" sx={{ fontWeight: 800, color: colors.text.primary, mb: 1 }}>
-                  Instalaciones Clínicas
-                </Typography>
-                <Typography variant="body2" sx={{ color: colors.text.secondary, mb: 2.5 }}>
-                  Ambiente seguro, higiénico y climatizado para tu mayor comodidad y tranquilidad.
-                </Typography>
-
-                <MedicalImage
-                  src="/images/consultorio.jpg"
-                  alt="Instalaciones del consultorio y sala de procedimientos de la Dra. Nery Betancourt"
-                  placeholderTitle="Consultorio de Gastroenterología"
-                  placeholderSubtitle="Dra. Nery Betancourt"
-                  aspectRatio="16/9"
-                  maxHeight={260}
-                  sx={{ mb: 3 }}
-                />
-
-                <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, mb: 2 }}>
-                  <MapPin size={22} color={colors.primary.main} style={{ marginTop: 2, flexShrink: 0 }} />
-                  <Box>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 800, color: colors.text.primary }}>
-                      {doctorInfo.location.clinicName}
-                    </Typography>
-                    <Typography variant="body2" sx={{ color: colors.text.secondary }}>
-                      {doctorInfo.location.address}
-                    </Typography>
-                    <Typography variant="caption" sx={{ color: colors.text.muted, display: 'block' }}>
-                      {doctorInfo.location.reference}
-                    </Typography>
-                  </Box>
-                </Box>
-              </Box>
-
-              <Box sx={{ pt: 2, borderTop: `1px solid ${colors.border.light}`, display: 'flex', gap: 1.5 }}>
-                <Button
-                  fullWidth
-                  variant="outlined"
-                  color="success"
-                  startIcon={<WhatsAppIcon />}
-                  component="a"
-                  href={getWhatsAppLink('Hola Dra. Nery, deseo conocer la dirección exacta y cómo llegar al consultorio')}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{ borderColor: '#25D366', color: '#16A34A', py: 1.2 }}
-                >
-                  Pedir Ubicación por WhatsApp
-                </Button>
-              </Box>
-            </Card>
-          </Grid>
-        </Grid>
+              Ver Ubicación en Google Maps
+            </Button>
+          </Card>
+        </Box>
       </Container>
     </Box>
   );
