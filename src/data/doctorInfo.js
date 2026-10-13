@@ -25,8 +25,8 @@ export const doctorInfo = {
 
   // Contacto y Canales de Atención
   contact: {
-    phone: '+58 414-0000000', // Modifica este número por el real de la doctora
-    whatsapp: '584140000000', // Sin signos ni espacios para enlace directo api.whatsapp.com
+    phone: '+58 424-8416096',
+    whatsapp: '584248416096', // Sin signos ni espacios para enlace directo api.whatsapp.com
     email: 'contacto@dranerybetancourt.com',
     instagram: '@dra.nerybetancourt',
   },

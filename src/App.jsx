@@ -19,6 +19,15 @@ import FAQ from './sections/FAQ';
 import AppointmentCTA from './sections/AppointmentCTA';
 
 export default function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOpenAppointmentModal = () => {
+    setModalOpen(true);
+  };
+
+  const handleCloseAppointmentModal = () => {
+    setModalOpen(false);
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -32,18 +41,15 @@ export default function App() {
         }}
       >
         {/* Barra de Navegación con Horarios y Enlaces */}
-        <Navbar />
+        <Navbar onOpenAppointmentModal={handleOpenAppointmentModal} />
 
         {/* Contenido Principal de la Landing Page */}
         <Box component="main" sx={{ flexGrow: 1 }}>
           {/* 1. Portada Principal / Hero con Foto y Estadísticas */}
-          <Hero />
+          <Hero onOpenAppointmentModal={handleOpenAppointmentModal} />
 
           {/* 3. Procedimientos Endoscópicos y Servicios Especializados */}
           <Procedures />
-
-          {/* 5. Telemedicina Especializada para Pacientes en el Exterior */}
-          {/*   <Telemedicine onOpenAppointmentModal={handleOpenAppointmentModal} /> */}
 
           {/* 6. Guía de Síntomas Digestivos (¿Cuándo acudir?) */}
           <Symptoms />
@@ -58,9 +64,11 @@ export default function App() {
         {/* Pie de Página con Enlaces y Aviso Médico */}
         <Footer />
 
-        {/* Botón Flotante de WhatsApp con Efecto Pulso */}
-        {/*   <WhatsAppFloat />*/}
-
+        {/* Modal de Agendamiento de Citas */}
+        <AppointmentModal
+          open={modalOpen}
+          onClose={handleCloseAppointmentModal}
+        />
       </Box>
     </ThemeProvider>
   );

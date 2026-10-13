@@ -9,33 +9,14 @@ import {
   Box,
   Typography,
   IconButton,
-  Grid,
   MenuItem,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  FormControl,
-  FormLabel,
   Alert,
-  Chip,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import { Clock, Video, Building2, CheckCircle2 } from 'lucide-react';
+import { CheckCircle2 } from 'lucide-react';
 import { colors } from '../../theme/colors';
 import { doctorInfo } from '../../data/doctorInfo';
-
-const procedureOptions = [
-  'Consulta Médica General (Digestiva)',
-  'Gastroscopia (Endoscopia Superior)',
-  'Colonoscopia Total',
-  'Rectoscopia',
-  'Polipectomía Endoscópica',
-  'CPRE (Vías Biliares y Páncreas)',
-  'Segunda Opinión Médica',
-  'Otro motivo / Chequeo preventivo',
-];
 
 const timeSlots = [
   '08:30 AM',
@@ -52,9 +33,6 @@ export default function AppointmentModal({ open, onClose }) {
   const [formData, setFormData] = useState({
     fullName: '',
     phone: '',
-    email: '',
-    modality: 'presencial', // 'presencial' o 'telemedicina'
-    procedure: 'Consulta Médica General (Digestiva)',
     preferredDate: '',
     preferredTime: '09:15 AM',
     notes: '',
@@ -87,13 +65,11 @@ export default function AppointmentModal({ open, onClose }) {
 ----------------------------------------
 *Paciente:* ${formData.fullName}
 *Teléfono:* ${formData.phone}
-*Modalidad:* ${formData.modality === 'presencial' ? '🏥 Presencial en Consultorio' : '💻 Telemedicina (Online)'}
-*Servicio / Motivo:* ${formData.procedure}
 *Fecha deseada:* ${formData.preferredDate || 'A coordinar'}
-*Horario preferido:* ${formData.preferredTime} (Horario regular: 8am a 2pm)
-*Síntomas o notas:* ${formData.notes || 'Ninguna'}
+*Horario preferido:* ${formData.preferredTime} (Horario regular: 8:00 AM a 2:00 PM)
+*Motivo o síntomas:* ${formData.notes.trim() || 'Consulta digestiva'}
 ----------------------------------------
-_Enviado desde la página web de la Dra. Nery Betancourt_`;
+_Enviado desde el portal web de la Dra. Nery Betancourt_`;
 
     const whatsappUrl = `https://wa.me/${doctorInfo.contact.whatsapp}?text=${encodeURIComponent(message)}`;
 
@@ -120,17 +96,21 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
       PaperProps={{
         sx: {
           borderRadius: 4,
-          p: { xs: 1, sm: 2 },
+          p: { xs: 1, sm: 1.5 },
           background: '#ffffff',
+          boxShadow: '0 20px 45px rgba(15, 30, 54, 0.15)',
         },
       }}
     >
       <DialogTitle sx={{ m: 0, p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Box>
-          <Typography variant="h5" sx={{ fontWeight: 800, color: colors.text.primary, fontSize: { xs: '1.25rem', sm: '1.45rem' } }}>
+          <Typography
+            variant="h5"
+            sx={{ fontWeight: 800, color: colors.text.primary, fontSize: { xs: '1.25rem', sm: '1.45rem' } }}
+          >
             Solicitar Cita Médica
           </Typography>
-          <Typography variant="caption" sx={{ color: colors.primary.main, fontWeight: 600 }}>
+          <Typography variant="caption" sx={{ color: colors.primary.main, fontWeight: 600, display: 'block', mt: 0.3 }}>
             Dra. Nery Betancourt • Horarios de 8:00 AM a 2:00 PM
           </Typography>
         </Box>
@@ -143,7 +123,7 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
         </IconButton>
       </DialogTitle>
 
-      <DialogContent dividers sx={{ borderColor: colors.border.light, py: 2.5 }}>
+      <DialogContent dividers sx={{ borderColor: colors.border.light, py: 3, px: { xs: 2, sm: 3 } }}>
         {submitted ? (
           <Box sx={{ textAlign: 'center', py: 4, px: 2 }}>
             <Box
@@ -182,94 +162,23 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
               variant="contained"
               color="primary"
               onClick={handleReset}
-              sx={{ px: 4, py: 1.2 }}
+              sx={{ px: 4, py: 1.2, borderRadius: 2.5, fontWeight: 700 }}
             >
               Entendido
             </Button>
           </Box>
         ) : (
           <form id="appointment-form" onSubmit={handleSubmit}>
-            <Grid container spacing={2}>
-              {/* Modalidad de atención */}
-              <Grid item xs={12}>
-                <FormControl component="fieldset" fullWidth>
-                  <FormLabel
-                    component="legend"
-                    sx={{
-                      fontWeight: 700,
-                      fontSize: '0.9rem',
-                      color: colors.text.primary,
-                      mb: 1,
-                    }}
-                  >
-                    ¿Qué tipo de atención necesitas?
-                  </FormLabel>
-                  <RadioGroup
-                    row
-                    name="modality"
-                    value={formData.modality}
-                    onChange={handleChange}
-                    sx={{ gap: 1 }}
-                  >
-                    <Box
-                      sx={{
-                        flex: 1,
-                        p: 1.2,
-                        borderRadius: 3,
-                        border: `1.5px solid ${formData.modality === 'presencial' ? colors.primary.main : colors.border.light}`,
-                        backgroundColor: formData.modality === 'presencial' ? colors.primary.lighter : '#ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => setFormData((p) => ({ ...p, modality: 'presencial' }))}
-                    >
-                      <FormControlLabel
-                        value="presencial"
-                        control={<Radio size="small" />}
-                        label={
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}>
-                            <Building2 size={16} color={colors.primary.main} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                              Presencial (Consultorio)
-                            </Typography>
-                          </Box>
-                        }
-                      />
-                    </Box>
-
-                    <Box
-                      sx={{
-                        flex: 1,
-                        p: 1.2,
-                        borderRadius: 3,
-                        border: `1.5px solid ${formData.modality === 'telemedicina' ? colors.secondary.main : colors.border.light}`,
-                        backgroundColor: formData.modality === 'telemedicina' ? colors.secondary.lighter : '#ffffff',
-                        display: 'flex',
-                        alignItems: 'center',
-                        cursor: 'pointer',
-                      }}
-                      onClick={() => setFormData((p) => ({ ...p, modality: 'telemedicina' }))}
-                    >
-                      <FormControlLabel
-                        value="telemedicina"
-                        control={<Radio size="small" color="secondary" />}
-                        label={
-                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.8 }}>
-                            <Video size={16} color={colors.secondary.main} />
-                            <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                              Telemedicina (Exterior)
-                            </Typography>
-                          </Box>
-                        }
-                      />
-                    </Box>
-                  </RadioGroup>
-                </FormControl>
-              </Grid>
-
-              {/* Nombre Completo */}
-              <Grid item xs={12} sm={6}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+              {/* FILA 1: Nombre y Teléfono (Juntos y centrados en 2 columnas) */}
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                  gap: 2,
+                  alignItems: 'start',
+                }}
+              >
                 <TextField
                   fullWidth
                   required
@@ -280,10 +189,7 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
                   placeholder="Ej. Carmen Rodríguez"
                   size="small"
                 />
-              </Grid>
 
-              {/* Teléfono / WhatsApp */}
-              <Grid item xs={12} sm={6}>
                 <TextField
                   fullWidth
                   required
@@ -293,48 +199,39 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
                   onChange={handleChange}
                   placeholder="Ej. +58 412 1234567"
                   size="small"
-                  helperText="Para confirmar horario de cita"
                 />
-              </Grid>
+              </Box>
 
-              {/* Procedimiento o Motivo */}
-              <Grid item xs={12}>
-                <TextField
-                  select
-                  fullWidth
-                  label="Procedimiento o Consulta Solicitada"
-                  name="procedure"
-                  value={formData.procedure}
-                  onChange={handleChange}
-                  size="small"
-                >
-                  {procedureOptions.map((opt) => (
-                    <MenuItem key={opt} value={opt}>
-                      {opt}
-                    </MenuItem>
-                  ))}
-                </TextField>
-              </Grid>
-
-              {/* Fecha Tentativa */}
-              <Grid item xs={12} sm={6}>
+              {/* FILA 2: Fecha y Horario Preferido (Juntos en otra fila) */}
+              <Box
+                sx={{
+                  display: 'grid',
+                  gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' },
+                  gap: 2,
+                  alignItems: 'start',
+                }}
+              >
                 <TextField
                   fullWidth
+                  required
                   type="date"
                   label="Fecha Tentativa"
                   name="preferredDate"
                   value={formData.preferredDate}
                   onChange={handleChange}
+                  slotProps={{
+                    inputLabel: { shrink: true },
+                    htmlInput: {
+                      min: new Date().toISOString().split('T')[0],
+                    },
+                  }}
                   InputLabelProps={{ shrink: true }}
-                  size="small"
                   inputProps={{
                     min: new Date().toISOString().split('T')[0],
                   }}
+                  size="small"
                 />
-              </Grid>
 
-              {/* Horario Preferido (8am a 2pm) */}
-              <Grid item xs={12} sm={6}>
                 <TextField
                   select
                   fullWidth
@@ -350,30 +247,30 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
                     </MenuItem>
                   ))}
                 </TextField>
-              </Grid>
+              </Box>
 
-              {/* Síntomas o notas adicionales */}
-              <Grid item xs={12}>
+              {/* FILA 3: Motivo / Mensaje (Completo en otra fila) */}
+              <Box sx={{ width: '100%' }}>
                 <TextField
                   fullWidth
                   multiline
-                  rows={2.5}
+                  rows={3}
                   label="Motivo de consulta o síntomas principales (Opcional)"
                   name="notes"
                   value={formData.notes}
                   onChange={handleChange}
-                  placeholder="Ej. Siento ardor frecuente en la boca del estómago y deseo realizarme una gastroscopia..."
+                  placeholder="Ej. Siento acidez o dolor en la boca del estómago y deseo realizarme una consulta o evaluación preventiva..."
                   size="small"
                 />
-              </Grid>
-            </Grid>
+              </Box>
+            </Box>
           </form>
         )}
       </DialogContent>
 
       {!submitted && (
-        <DialogActions sx={{ p: 2.5, justifyContent: 'space-between' }}>
-          <Button onClick={onClose} sx={{ color: colors.text.secondary }}>
+        <DialogActions sx={{ p: 2.5, pt: 2, justifyContent: 'space-between' }}>
+          <Button onClick={onClose} sx={{ color: colors.text.secondary, fontWeight: 600 }}>
             Cancelar
           </Button>
 
@@ -387,11 +284,15 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
             sx={{
               backgroundColor: '#25D366',
               color: '#ffffff',
-              px: 3,
-              py: 1,
+              px: { xs: 2.5, sm: 3.5 },
+              py: 1.1,
               fontWeight: 700,
+              fontSize: '0.92rem',
+              borderRadius: 2.5,
+              boxShadow: '0 4px 14px rgba(37, 211, 102, 0.35)',
               '&:hover': {
                 backgroundColor: '#1EBE5D',
+                boxShadow: '0 6px 18px rgba(37, 211, 102, 0.45)',
               },
             }}
           >
@@ -402,3 +303,4 @@ _Enviado desde la página web de la Dra. Nery Betancourt_`;
     </Dialog>
   );
 }
+
